@@ -1,11 +1,10 @@
 package lab2;
 
-import lab1.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  * @author Machi
@@ -13,24 +12,23 @@ import java.util.Scanner;
 public class Lab_IO_part2 {
 
     public static void main(String[] args) {
-	
-	
-	Scanner input = new Scanner(System.in);
-	
-	System.out.print("Enter record number you want to read: ");	
-	int record = input.nextInt();
-	
 
 //	File data = new File(File.separatorChar + "temp" + File.separatorChar 
 //                        + "test.txt");
 
 	File data = new File("/temp/IOLab.txt");
-	String[] headers = { "First Name:\t", "Last Name:\t", "Street Addres:\t", "City:\t\t", "State:\t\t", "Zip:\t\t" };
-
+	String[] headers = { "First Name:\t", "Last Name:\t", "Street Addres:\t", 
+			     "City:\t\t", "State:\t\t", "Zip:\t\t" };
+	
+	
+	
 	BufferedReader in = null;
 	try {
+	    
+	    Integer record = Lab_IO_part2.getRecordNumber();
 	    in = new BufferedReader(new FileReader(data));
 	    String line = in.readLine();
+	   
 
 	    int count = 0;
 	    while (line != null) {
@@ -60,4 +58,34 @@ public class Lab_IO_part2 {
 
 
     }
+    
+    public static Integer getRecordNumber() {
+	
+		
+	String input = JOptionPane.showInputDialog("Enter record number you want to read: ");	
+	
+	
+	if (input == null) {	    
+	    return null;	
+	
+	} else {
+	    
+	     return Integer.valueOf(input);
+	}
+    
+    }
+    
+    public static int getLineCount(String line) {
+	
+	 int linenumb = 0;
+	    while(line != null) {
+		
+		linenumb++;
+	    
+	    }
+    
+	    return linenumb;
+    }
 }
+
+

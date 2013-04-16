@@ -1,18 +1,16 @@
 package lab3;
 
-import lab2.*;
-import lab1.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
  * @author Machi
  */
 public class Lab_IO_part21 {
+
     private static boolean isNumeric = true;
 
     public static void main(String[] args) {
@@ -20,9 +18,13 @@ public class Lab_IO_part21 {
 	do {
 	    try {
 		recNum = Lab_IO_part21.getRecordNumber();
-		if(recNum == null) System.exit(0);
+
+		if (recNum == null) {
+		    System.exit(0);
+		}
 		isNumeric = true;
-	    } catch(NumberFormatException nfe) {
+
+	    } catch (NumberFormatException nfe) {
 		isNumeric = false;
 	    }
 	} while (!isNumeric);
@@ -44,15 +46,17 @@ public class Lab_IO_part21 {
 
 		String[] recordline = line.split("\\|");
 
+		// user choice of line starts with 1 so to get the first record 0 
+		// we need to substract 1 from input value
 		if (count == recNum - 1) {
 
 		    for (int i = 0; i < recordline.length; i++) {
-
+			
 //			if (headers[i].equals("City:\t\t")) {
 //			    System.out.println(headers[i] + recordline[i]);
 //			}
-			
-			if (headers[i] == headers[3]) {
+			if (headers[i].equals(headers[3])) {
+
 			    System.out.println(headers[i] + recordline[i]);
 			}
 		    }
@@ -70,14 +74,14 @@ public class Lab_IO_part21 {
 	    } catch (Exception e) {
 	    }
 	}
-
-
     }
-    
+
     private static Integer getRecordNumber() throws NumberFormatException {
 	String input = JOptionPane.showInputDialog("Please enter a record number:");
-	if(input == null) {
+
+	if (input == null) {
 	    return null;
+
 	} else {
 	    //parse to integer
 	    return Integer.valueOf(input);
