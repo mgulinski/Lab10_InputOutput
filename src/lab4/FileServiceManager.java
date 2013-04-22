@@ -5,6 +5,7 @@
 package lab4;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,35 +17,43 @@ public class FileServiceManager {
 
     private FileInputStrategy input;
     private FileOutputStrategy output;
-    private List records = new ArrayList();
+    private FileFormatService fileformat;
 
     public FileServiceManager(FileInputStrategy input, FileOutputStrategy output) {
 	this.input = input;
 	this.output = output;
-    }    
-    
-    public List<List<String>> inputFile() {	
-	return input.readInput();    
     }
     
-    public void outputFile(List<List<String>> records) {
-	output.printOutput(input.readInput());
-    
-    
+    /**
+     * public getters and setters
+     * @return 
+     */
+    public FileInputStrategy getInput() {
+	return input;
     }
-    
-    public void copyFile () {
-	
-	
-    
-    
-    }
-    
-      
 
-    public static void main(String[] args) {
-	
-	
-	FileServiceManager filemanager = new FileServiceManager(new PSVFileReadingStrategy(), new PSVFileWritingStrategy());
+    public void setInput(FileInputStrategy input) {
+	this.input = input;
     }
+
+    public FileOutputStrategy getOutput() {
+	return output;
+    }
+
+    public void setOutput(FileOutputStrategy output) {
+	this.output = output;
+    }
+
+    public List< LinkedHashMap<String, String>> inputFile(String filePath) {
+	return input.readInput(filePath);
+    }
+
+    public List<String> outputFile(List<Map<String, String>> decodedRecords) {
+	return output.printOutput(decodedRecords);
+	    }
+
+    public void copyFile() {
+    }
+
+    
 }

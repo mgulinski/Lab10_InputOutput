@@ -5,6 +5,7 @@
 package lab4;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -12,5 +13,5 @@ import java.util.List;
  */
 public interface FileOutputStrategy {
     
-    public abstract void printOutput(List<String[]> records);
+    public abstract List<String> printOutput(List<Map <String, String>> decodedData, String filePath);
 }

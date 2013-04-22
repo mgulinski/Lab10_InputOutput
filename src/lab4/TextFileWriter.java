@@ -8,7 +8,7 @@ package lab4;
  *
  * @author Machi
  */
-public interface TextFileWritingStrategy extends FileOutputStrategy {
+public interface TextFileWriter extends FileOutputStrategy {
    
     
 }

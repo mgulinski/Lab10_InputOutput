@@ -1,5 +1,6 @@
 package lab4;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -8,6 +9,6 @@ import java.util.List;
  */
 public interface FileInputStrategy {
     
-    public abstract List<String[]> readInput();
+    public abstract List< LinkedHashMap<String, String> >  readInput(String filePath);
     
 }
