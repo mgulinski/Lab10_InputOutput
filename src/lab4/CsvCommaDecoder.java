@@ -8,14 +8,14 @@ import java.util.Set;
 /**
  * @author Machi
  */
-public class CsvDecodingStrategy {
+public class CsvCommaDecoder implements FileDecodingStrategy {
 
-    boolean hasHeader = false;
+    boolean hasHeader = true;
     private static final String COMMA = ",";
-    private static final String PIPE = "\\|";
-//    String[] headers = {"First Name:\t", "Last Name:\t", "Street Addres:\t", "City:\t\t", "State:\t\t", "Zip:\t\t"};
+    //    String[] headers = {"First Name:\t", "Last Name:\t", "Street Addres:\t", "City:\t\t", "State:\t\t", "Zip:\t\t"};
 
-    public CsvDecodingStrategy() {
+   
+    public CsvCommaDecoder() {
     }
 
     public boolean getHasHeader() {
@@ -43,7 +43,7 @@ public class CsvDecodingStrategy {
 	// let's check if there is a header it would be the first line or records;
 	// if hasHeader = true then we build array of headers
 	if (hasHeader) {
-	    headers = inputDataLines.get(0).split(PIPE);
+	    headers = inputDataLines.get(0).split(COMMA);
 	}
 
 	for (int row = 0; row < inputDataLines.size(); row++) {
@@ -52,9 +52,10 @@ public class CsvDecodingStrategy {
 		row++;
 	    }
 
-	    String[] fields = inputDataLines.get(row).split(PIPE);
+	    String[] fields = inputDataLines.get(row).split(COMMA);
 
 	    LinkedHashMap<String, String> decodedRecord = new LinkedHashMap<>();
+	    
 	    int recordNum = 0;
 	    for (int col = 0; col < fields.length; col++) {
 
@@ -76,7 +77,7 @@ public class CsvDecodingStrategy {
     public static void main(String[] args) {
 
 
-	CsvDecodingStrategy csvdeco = new CsvDecodingStrategy();
+	CsvCommaDecoder csvdeco = new CsvCommaDecoder();
 
 //	System.out.println(cvsde.getHasHeader());
 
@@ -89,7 +90,7 @@ public class CsvDecodingStrategy {
 
 	csvdeco.setHasHeader(true);
 
-	List< LinkedHashMap<String, String>> decodedData = new ArrayList< LinkedHashMap<String, String>>();
+	List< LinkedHashMap<String, String>> decodedData;
 
 	decodedData = csvdeco.decodeData(inputRecordLines);
 

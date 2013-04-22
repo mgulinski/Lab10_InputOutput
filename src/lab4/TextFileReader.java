@@ -16,15 +16,46 @@ public class TextFileReader implements FileInputStrategy {
     
     String filePath = null;
     
-    public TextFileReader() {
-	
+    FileDecodingStrategy decoder;
     
+    /**
+     * constructors
+     * @param decoder 
+     */ 
+    public TextFileReader(FileDecodingStrategy decoder) {	
+	this.decoder = decoder;   
+    }
+    
+    public TextFileReader() {}
+    
+    
+    
+    /**
+     * public getters and setters
+     * @return 
+     */
+
+    public String getFilePath() {
+	return filePath;
     }
 
+    public void setFilePath(String filePath) {
+	this.filePath = filePath;
+    }
+
+    public FileDecodingStrategy getDecoder() {
+	return decoder;
+    }
+
+    public void setDecoder(FileDecodingStrategy decoder) {
+	this.decoder = decoder;
+    }
+    
+ 
+    
     @Override
-    public List< LinkedHashMap<String, String> > readInput(String filePath) {
+    public List< LinkedHashMap<String, String> > inputData(String filePath) {
 	
-	CsvDecodingStrategy decoder = new CsvDecodingStrategy();
 	List<String> recordLines = new ArrayList<>();	
 	
 	File data = new File(filePath);
@@ -35,8 +66,6 @@ public class TextFileReader implements FileInputStrategy {
 	    in = new BufferedReader(new FileReader(data));
 	    String line = in.readLine();
 	     
-
-	    int count = 0;
 	    while (line != null) {		
 		  recordLines.add(line);
 		  line = in.readLine();
@@ -55,17 +84,17 @@ public class TextFileReader implements FileInputStrategy {
 	 return decoder.decodeData(recordLines);
     }
     
-    
-    // testing the class
-    public static void main(String[] args) {
-	
-	String path = "/temp/IOLab.txt";
-	
-	TextFileReader fileReader = new TextFileReader();
-	
-	fileReader.readInput(path);
-	
-	System.out.println(fileReader.readInput(path).toString());
-    }
+//    
+//    // testing the class
+//    public static void main(String[] args) {
+//	
+//	String path = "/temp/IOLab.txt";
+//	
+//	TextFileReader fileReader = new TextFileReader(new CsvDecoder());
+//	
+//	fileReader.inputData(path);
+//	
+//	System.out.println(fileReader.inputData(path).toString());
+//    }
         
 }

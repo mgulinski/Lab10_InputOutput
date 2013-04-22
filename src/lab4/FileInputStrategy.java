@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface FileInputStrategy {
     
-    public abstract List< LinkedHashMap<String, String> >  readInput(String filePath);
+    public abstract List< LinkedHashMap<String, String> >  inputData (String filePath);
     
 }

@@ -8,14 +8,14 @@ import java.util.Set;
 /**
  * @author Machi
  */
-public class CsvEncodingStrategy {
+public class CsvPipeEncoder implements TextEncodingStrategy {
 
     boolean createHeader = false;
     private static final String COMMA = ",";
     private static final String PIPE = "|";
 //    String[] headers = {"First Name:\t", "Last Name:\t", "Street Addres:\t", "City:\t\t", "State:\t\t", "Zip:\t\t"};
 
-    public CsvEncodingStrategy() {
+    public CsvPipeEncoder() {
     }
 
     public boolean getCreateHeader() {
@@ -33,9 +33,9 @@ public class CsvEncodingStrategy {
      * @param inputDataLines
      * @return
      */
+    @Override
     public List<String> encodeData(List< LinkedHashMap<String, String>> decodedRecordList) {
 
-	String[] headers = null;
 	List<String> encodedRecordList = new ArrayList<>();
 
 	// let's check if there is a header it would be the first line or records;
@@ -55,52 +55,57 @@ public class CsvEncodingStrategy {
 
 		line.append(records.get(key)).append(PIPE);
 	    }
-
+	    
+	    line.deleteCharAt(line.length() - 1);
 	    encodedRecordList.add(line + "\n");
+	    
 	}
 
 
 	return encodedRecordList;
     }
 
-    // public method to test the class
-    public static void main(String[] args) {
-
-	CsvDecodingStrategy csvDeco = new CsvDecodingStrategy();
-
-//	System.out.println(cvsde.getHasHeader());
-
-	List<String> inputRecordLines = new ArrayList<String>();
-
-	inputRecordLines.add("FIRST NAME|LAST NAME|STREET ADDRESS|CITY|STATE|ZIP");
-	inputRecordLines.add("Machi|Gulinski|5367 Eastway|Greendale|WI|53129");
-	inputRecordLines.add("Ola|Druzny|5467 Blue St.|Milwaukee|WI|53209");
-	inputRecordLines.add("Les|Klimek|919 St. Paul St.|Wauwatosa|WI|53217");
-
-	csvDeco.setHasHeader(true);
-
-	List< LinkedHashMap<String, String>> decodedData = new ArrayList< LinkedHashMap<String, String>>();
-
-	decodedData = csvDeco.decodeData(inputRecordLines);
-
-
-	for (LinkedHashMap r : decodedData) {
-
-	    Set<String> keys = r.keySet();
-
-	    for (String key : keys) {
-
-//	    String record = r.get(key).toString();
-		System.out.println(key + ": " + r.get(key).toString());
-	    }
-	}
-
-
-	CsvEncodingStrategy csvEnco = new CsvEncodingStrategy();
-
-	for (String ln : csvEnco.encodeData(decodedData)) {
-	    
-	    System.out.println(ln); 
-	}
-    }
+    
+//    
+//    
+//    // public method to test the class
+//    public static void main(String[] args) {
+//
+//	CsvPipeDecoder csvDeco = new CsvPipeDecoder();
+//
+////	System.out.println(cvsde.getHasHeader());
+//
+//	List<String> inputRecordLines = new ArrayList<String>();
+//
+//	inputRecordLines.add("FIRST NAME|LAST NAME|STREET ADDRESS|CITY|STATE|ZIP");
+//	inputRecordLines.add("Machi|Gulinski|5367 Eastway|Greendale|WI|53129");
+//	inputRecordLines.add("Ola|Druzny|5467 Blue St.|Milwaukee|WI|53209");
+//	inputRecordLines.add("Les|Klimek|919 St. Paul St.|Wauwatosa|WI|53217");
+//
+//	csvDeco.setHasHeader(true);
+//
+//	List< LinkedHashMap<String, String>> decodedData = new ArrayList< >();
+//
+//	decodedData = csvDeco.decodeData(inputRecordLines);
+//
+//
+//	for (LinkedHashMap r : decodedData) {
+//
+//	    Set<String> keys = r.keySet();
+//
+//	    for (String key : keys) {
+//
+////	    String record = r.get(key).toString();
+//		System.out.println(key + ": " + r.get(key).toString());
+//	    }
+//	}
+//
+//
+//	CsvPipeEncoder csvEnco = new CsvPipeEncoder();
+//
+//	for (String ln : csvEnco.encodeData(decodedData)) {
+//	    
+//	    System.out.println(ln); 
+//	}
+//    }
 }
